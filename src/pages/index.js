@@ -1,20 +1,16 @@
-import Head from 'next/head'
-import Image from 'next/image'
-import { Inter } from '@next/font/google'
-import styles from '@/styles/Home.module.css'
+import Link from 'next/link'
 import {useState, useEffect} from 'react'
-const inter = Inter({ subsets: ['latin'] })
 
 export default function Home() {
   const [log , setLog]= useState(false)
   return (
     <>
 	<header> 
-	  <button> logo </button>
+	  <button><Link href='/'>  logo </Link> </button>
 	  <button> about us </button>
-	  <button> PRODUCTS </button>
+	  <button><Link href='/products'> PRODUCTS</Link> </button>
 	  <button onClick={()=> setLog(!log)}> sign up/login </button>
-	  {log ? <>{<Login/>}</> : <>nothing</>}
+	  {log ? <>{<Login/>}</> : <></>}
 	  <button>cart  </button>
 	</header>
 	<div>
