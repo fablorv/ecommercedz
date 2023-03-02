@@ -1,6 +1,11 @@
 import Link from 'next/link'
+import {useState} from 'react'
 
 export default function Products(){
+  const [itemone, setItemone] = useState(false)
+  const [itemtwo, setItemtwo] = useState(false)
+  const [itemthree, setItemthree] = useState(false)
+
   return(
     <>
       <header>
@@ -25,9 +30,9 @@ export default function Products(){
             </div>
             <div className="products">
               
-              <div className='product1'><p>name of product 1 </p> <p> descreption of the product </p> <p> price of the produuct </p> <button> add to cart </button></div>
-              <div className='product2'><p>name of product 3 </p> <p> descreption of the product </p> <p> price of the produuct </p> <button> add to cart </button></div>
-              <div className='product3'><p>name of product 2 </p> <p> descreption of the product </p> <p> price of the produuct </p> <button> add to cart </button></div>
+              <div className='product1'><p>name of product 1 </p> <p> descreption of the product </p> <p> price of the produuct </p> <button onClick={()=> setItemone('true')}>{itemone ? <p>item in cart</p> : <p>add to cart</p>} </button></div>
+              <div className='product2'><p>name of product 3 </p> <p> descreption of the product </p> <p> price of the produuct </p> <button onClick={()=> setItemtwo('true')}> {itemtwo ? <p>item in cart</p> : <p>add to cart</p>} </button></div>
+              <div className='product3'><p>name of product 2 </p> <p> descreption of the product </p> <p> price of the produuct </p> <button onClick={()=> setItemthree(true)}> { itemthree ? <p>item in cart </p>: <p>add to cart</p>}  </button></div>
             </div>
         </div>
       </div>
