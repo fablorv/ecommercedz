@@ -24,6 +24,6 @@ E-commerce website to sell powerbanks/earphones/speakers
 #the big things to be fixed 
 
 -log in and sign need to save the info and be sendable to the backend 
--when the user add item to cart , it needs to happen ( function needed for that ) 
+-when the user add item to cart , it needs to happen ( function needed for that)
 -and the whole website need to comminucate with the back-end when needed
 -the payment and saving the user adress to send the order
