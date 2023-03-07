@@ -7,25 +7,14 @@ export default function Products(){
   const [itemthree, setItemthree] = useState(false)
   const [storageO , setstorageO] = useState([])
   let arr2 = useRef([])
-    console.log(typeof arr2)
-    console.log('at the end', Object.values(arr2).length , 'conditions', itemone, itemtwo, itemthree)
-  const turnto = (x)=>{
-    x(true)
-    let stringify = JSON.stringify(arr2)
-    localStorage.setItem( 'arr', stringify)
-  }
+  console.log(typeof arr2)
+  const setup = (x)=>{
 
-  useEffect(()=>{
-      if(localStorage.getItem('arr') || Object.values(arr2).length >1 ){
-        console.log(localStorage.getItem('arr'))
-        let values = localStorage.getItem('arr')
-        let cleanvalues = JSON.parse(values)
-        setstorageO(cleanvalues.current)
-      }else console.log('empty')
-  }, [itemone,itemtwo, itemthree ])
-  console.log(storageO, 'test')
- 
-  return(
+    setItemone(!itemone)
+    localStorage.removeItem(x)
+
+   }
+     return(
     <>
       <header>
         <button><Link href='/'><img src='#' alt='logo'/></Link></button>
@@ -49,9 +38,9 @@ export default function Products(){
             </div>
             <div className="products">
               
-              <div className='product1'><p>name of product 1 </p> <p> descreption of the product </p> <p> price of the produuct </p> <button onClick={()=>{ !arr2.current.includes('1') && arr2.current.push('1');turnto(setItemone)}}>{ storageO.includes('1') ? <p>item in cart</p> : <p>add to cart</p>} </button></div>
-              <div className='product2'><p>name of product 3 </p> <p> descreption of the product </p> <p> price of the produuct </p> <button onClick={()=> {!arr2.current.includes('2') && arr2.current.push('2');turnto(setItemtwo);}}> {storageO.includes('2')? <p>item in cart</p> : <p>add to cart</p>} </button></div>
-              <div className='product3'><p>name of product 2 </p> <p> descreption of the product </p> <p> price of the produuct </p> <button onClick={()=> {!arr2.current.includes('3') && arr2.current.push('3');turnto(setItemthree)}}> { storageO.includes('3')? <p>item in cart </p>: <p>add to cart</p>}  </button></div>
+              <div className='product1'><p>name of product 1 </p> <p> descreption of the product </p> <p> price of the produuct </p> <button onClick={()=>{if(localStorage.getItem('arr')){localStorage.removeItem('arr')}else localStorage.setItem('arr', '1')} }>{ itemone ? <p>item in cart</p> : <p>add to cart</p>} </button></div>
+              <div className='product2'><p>name of product 3 </p> <p> descreption of the product </p> <p> price of the produuct </p> <button onClick={()=>{if(localStorage.getItem('arr2')){localStorage.removeItem('arr2')}else localStorage.setItem('arr2', '2')}}> {storageO.includes('2')? <p>item in cart</p> : <p>add to cart</p>} </button></div>
+              <div className='product3'><p>name of product 2 </p> <p> descreption of the product </p> <p> price of the produuct </p> <button onClick={()=>{if(localStorage.getItem('arr3')){localStorage.removeItem('arr3')}else localStorage.setItem('arr3', '3')}}> { storageO.includes('3')? <p>item in cart </p>: <p>add to cart</p>}  </button></div>
             </div>
         </div>
       </div>
