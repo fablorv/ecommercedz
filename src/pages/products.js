@@ -8,12 +8,14 @@ export default function Products(){
   const [storageO , setstorageO] = useState([])
   let arr2 = useRef([])
   console.log(typeof arr2)
-  const setup = (x)=>{
+  const setup = ()=>{
+    localStorage.setItem('arr20', '1')
+    console.log('function lciked')
+  }
+  useEffect(()=>{
 
-    setItemone(!itemone)
-    localStorage.removeItem(x)
-
-   }
+    localStorage.setItem('wow', 'crazy')
+  },[])
      return(
     <>
       <header>
@@ -37,10 +39,10 @@ export default function Products(){
               <div className="condition"> choose condition </div>
             </div>
             <div className="products">
-              
-              <div className='product1'><p>name of product 1 </p> <p> descreption of the product </p> <p> price of the produuct </p> <button onClick={()=>{if(localStorage.getItem('arr')){localStorage.removeItem('arr')}else localStorage.setItem('arr', '1')} }>{ itemone ? <p>item in cart</p> : <p>add to cart</p>} </button></div>
-              <div className='product2'><p>name of product 3 </p> <p> descreption of the product </p> <p> price of the produuct </p> <button onClick={()=>{if(localStorage.getItem('arr2')){localStorage.removeItem('arr2')}else localStorage.setItem('arr2', '2')}}> {storageO.includes('2')? <p>item in cart</p> : <p>add to cart</p>} </button></div>
-              <div className='product3'><p>name of product 2 </p> <p> descreption of the product </p> <p> price of the produuct </p> <button onClick={()=>{if(localStorage.getItem('arr3')){localStorage.removeItem('arr3')}else localStorage.setItem('arr3', '3')}}> { storageO.includes('3')? <p>item in cart </p>: <p>add to cart</p>}  </button></div>
+              <button onClick={()=>{if(typeof window !== 'undefined'){localStorage.setItem('new', 'button')}}}> new butt </button> 
+              <div className='product1'><p>name of product 1 </p> <p> descreption of the product </p> <p> price of the produuct </p> <button onClick={()=> console.log('1')}>{ itemone ? <p>item in cart</p> : <p>add to cart</p>} </button></div>
+              <div className='product2'><p>name of product 3 </p> <p> descreption of the product </p> <p> price of the produuct </p> <button onClick={()=> console.log('test2')}> {storageO.includes('2')? <p>item in cart</p> : <p>add to cart</p>} </button></div>
+              <div className='product3'><p>name of product 2 </p> <p> descreption of the product </p> <p> price of the produuct </p> <button onClick={()=> console.log('test3')}> { storageO.includes('3')? <p>item in cart </p>: <p>add to cart</p>}  </button></div>
             </div>
         </div>
       </div>
