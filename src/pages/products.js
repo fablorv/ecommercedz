@@ -40,7 +40,7 @@ export default function Products(){
             </div>
             <div className="products">
               <button onClick={()=>{if(typeof window !== 'undefined'){localStorage.setItem('new', 'button')}}}> new butt </button> 
-              <div className='product1'><p>name of product 1 </p> <p> descreption of the product </p> <p> price of the produuct </p> <button onClick={()=> console.log('1')}>{ itemone ? <p>item in cart</p> : <p>add to cart</p>} </button></div>
+              <div className='product1'><p>name of product 1 </p> <p> descreption of the product </p> <p> price of the produuct </p> <button onClick={()=> localStorage.setItem('arr', '1')}>{ itemone ? <p>item in cart</p> : <p>add to cart</p>} </button></div>
               <div className='product2'><p>name of product 3 </p> <p> descreption of the product </p> <p> price of the produuct </p> <button onClick={()=> console.log('test2')}> {storageO.includes('2')? <p>item in cart</p> : <p>add to cart</p>} </button></div>
               <div className='product3'><p>name of product 2 </p> <p> descreption of the product </p> <p> price of the produuct </p> <button onClick={()=> console.log('test3')}> { storageO.includes('3')? <p>item in cart </p>: <p>add to cart</p>}  </button></div>
             </div>

@@ -2,8 +2,17 @@ import Link from 'next/link'
 import {useState, useEffect} from 'react'
 
 export default function Home() {
+		const [geto , setGeto] = useState(0)
+	  const [data, setData] = useState([]);
+	useEffect(() => {
+	    async function fetchData() {
+	      const response = await fetch('/api/mytable');
+	      const json = await response.json();
+	      setData(json);
+	    }
 
-
+	    fetchData();
+	  }, [geto]);
   return (
     <>
 	<header> 
@@ -29,6 +38,16 @@ export default function Home() {
 	  <div className="aboutus">
 	    <p> we sell power banks of all kinds and stuff </p> 
 	  </div>
+	  <div>
+	      {data.map((row) => (
+		<div key={row.id}>
+		  <p>{row.name}</p>
+		  <p>{row.email}</p>
+		  <p>{row.phone}</p>
+		</div>
+	      ))}
+	    </div>
+	    <button onClick={()=>{setGeto(geto+1)}}>get data </button>
 	</div>
     </>
   )
