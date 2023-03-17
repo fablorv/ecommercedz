@@ -11,11 +11,12 @@ export default function login(){
   const [email, setemail] = useState('')
   const [phone, setPhone] = useState('')
   const [info , setinfo] = useState([])
-  console.log(info)
+  console.log(JSON.stringify({name, email , phone}))
   
   async function handleSubmit(event) {
     event.preventDefault();
-    const response = await fetch('/api/database/index', {
+
+    const response = await fetch('/api/hello', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
