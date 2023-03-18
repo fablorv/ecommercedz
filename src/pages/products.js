@@ -6,10 +6,15 @@ export default function Products(){
   const [itemtwo, setItemtwo] = useState(false)
   const [itemthree, setItemthree] = useState(false)
   const [storageO , setstorageO] = useState([])
+  const [cookies , setCookies] = useState('')
   let arr2 = useRef([])
   console.log(typeof arr2)
   const setup = ()=>{
-    document.cookie = ('cookie=testing')
+  	
+    if(cookies.cookie){
+      let state = 'cookie=; Max-age=-1;'
+    }else document.cookie = ('cookie=testing')
+
     console.log('cookie worked')
   }
   const setuptwo = ()=>{
@@ -21,9 +26,21 @@ export default function Products(){
     console.log('cookie worked3')
   }
   useEffect(()=>{
+      let str = document.cookie;
+    
+	console.log(str)
+	str = str.split('; ');
+	const result = {};
+	for (let i in str) {
+	    const cur = str[i].split('=');
+	    result[cur[0]] = cur[1];
 
-    localStorage.setItem('wow', 'crazy')
+	}
+
+            setCookies(result)
+	console.log('this is state', result);
   },[])
+    console.log(cookies)
      return(
     <>
       <header>
@@ -48,9 +65,9 @@ export default function Products(){
             </div>
             <div className="products">
               <button onClick={()=>{console.log('stuff')}}> new butt </button> 
-              <div className='product1'><p>name of product 1 </p> <p> descreption of the product </p> <p> price of the produuct </p> <button onClick={setup}>{ itemone ? <p>item in cart</p> : <p>add to cart</p>} </button></div>
-              <div className='product2'><p>name of product 3 </p> <p> descreption of the product </p> <p> price of the produuct </p> <button onClick={setuptwo}> {storageO.includes('2')? <p>item in cart</p> : <p>add to cart</p>} </button></div>
-              <div className='product3'><p>name of product 2 </p> <p> descreption of the product </p> <p> price of the produuct </p> <button onClick={setupthree}> { storageO.includes('3')? <p>item in cart </p>: <p>add to cart</p>}  </button></div>
+              <div className='product1'><p>name of product 1 </p> <p> descreption of the product </p> <p> price of the produuct </p> <button onClick={setup}>{ cookies.cookie ? <p>item in cart</p> : <p>add to cart</p>} </button></div>
+              <div className='product2'><p>name of product 3 </p> <p> descreption of the product </p> <p> price of the produuct </p> <button onClick={setuptwo}> {cookies.cookie2  ? <p>item in cart</p> : <p>add to cart</p>} </button></div>
+              <div className='product3'><p>name of product 2 </p> <p> descreption of the product </p> <p> price of the produuct </p> <button onClick={setupthree}> { cookies.cookie3 ? <p>item in cart </p>: <p>add to cart</p>}  </button></div>
             </div>
         </div>
       </div>

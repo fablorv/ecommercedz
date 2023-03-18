@@ -6,7 +6,7 @@ export default function Home() {
 	  const [data, setData] = useState([]);
 	useEffect(() => {
 	    async function fetchData() {
-	      const response = await fetch('/api/mytable');
+	      const response = await fetch('/api/hello');
 	      const json = await response.json();
 	      setData(json);
 	    }
