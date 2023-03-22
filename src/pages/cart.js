@@ -1,36 +1,31 @@
 import {useEffect, useState} from 'react'
 
 export default function cart(){
-  const [localitems , setlocalitems] = useState()
-  const [checkout, setCheckout] = useState(false)
+  const [items, setItems] = useState({})
+  const [func , setFunc]= useState()
   useEffect(()=>{
-    let items = localStorage.getItem('arr')
-    if(items){
+    console.log('page fired')
+    let str = document.cookie;
 
-     let values= JSON.parse(items)
-      console.log(items)
-      setlocalitems(values)
-      console.log(localitems)
-    }else console.log('nothing yet ')
-
-  },[])
-    const testing = ()=>{
-      if(localitems){
-        console.log('the value' ,localitems.current, 'the type:' , typeof localitems)
-      }
+    str = str.split('; ');
+    const result = {}
+    for(let i in str){
+      const cur = str[i].split('=');
+      result[cur[0]] = cur[1];
     }
-    testing()
-  return(
+    setItems(result)
+     console.log('cookies available', result)
+  },[])
+  console.log(Object.keys(items).length)
+     return(
     <>
-      
-      <p>item 1 u wanna buy</p>
-      <button> close </button>
-      <p>item 1 u wanna buy</p>
-      <p>item 2 u wanna buy</p>
-      <p>item 3 u wanna buy</p>
-      <p>item 4 u wanna buy</p>
-      <button onClick={()=>setCheckout(!checkout)}> check out </button>
-      {checkout ? <> <input placeholder="your name"/><input placeholder="your last name"/> <input placeholder="your adress"/><input placeholder="your phone number"/> </>: <></>}
+       {Object.keys(items).length > 0 ? Object.keys(items).map((Keyname, i) =>(
+         <p className="items" key={i}>
+            item number {i}: {items[Keyname]}
+         </p>
+       )) : <>no items yet </>}
+       <button> check out </button>
+      {false ? <> <input placeholder="your name"/><input placeholder="your last name"/> <input placeholder="your adress"/><input placeholder="your phone number"/> </>: <></>}
 
     </>
 
