@@ -11,6 +11,8 @@ const db = new sqlite3.Database('./data.db', (err) => {
 		    name TEXT NOT NULL,\
 		    email TEXT NOT NULL,\
 		    phone INTEGER\
+		    item TEXT NOT NULL,\
+		    user TEXT NOT NULL,\
 		)', (err) => {
 		    if (err) {
 		        console.log("Table already exists.");
@@ -35,5 +37,14 @@ export async function insertData(name, email, phone) {
     driver: sqlite3.Database,
   });
   await db.run('INSERT INTO mytable (name, email, phone) VALUES (?, ?, ?)', name, email, phone);
+  await db.close();
+}
+export async function insertpuchases(item, user) {
+  const db = await open({
+    filename: './data.db',
+    driver: sqlite3.Database,
+  });
+    console.log("this is from database", item, user)
+  await db.run('INSERT INTO mytable (name, email) VALUES (?, ?)', item, user);
   await db.close();
 }
