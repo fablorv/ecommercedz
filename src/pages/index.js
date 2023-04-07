@@ -1,9 +1,39 @@
 import Link from 'next/link'
 import {useState, useEffect} from 'react'
+import {initializeApp} from 'firebase/app'
+import {getAuth , GoogleAuthProvider, signInWithPopup, signOut} from 'firebase/auth'
+import { useAuthState } from 'react-firebase-hooks/auth';
+import { useCollectionData } from 'react-firebase-hooks/firestore';
+import 'firebase/firestore';
+import 'firebase/auth';
+import 'firebase/analytics';
+
+
+const firebaseConfig = {
+  apiKey: "AIzaSyDtvNXCpK2_pZtsvmpmuLWhPylQ8Jewoec",
+  authDomain: "testland-4960a.firebaseapp.com",
+  projectId: "testland-4960a",
+  storageBucket: "testland-4960a.appspot.com",
+  messagingSenderId: "390892028351",
+  appId: "1:390892028351:web:1bccc6ed25c9809664210a"
+};
+
+
+
+
+
+const app = initializeApp(firebaseConfig);
+
+const auth = getAuth(app);
 
 export default function Home() {
-		const [geto , setGeto] = useState(0)
-	  const [data, setData] = useState([]);
+	const [geto , setGeto] = useState(0)
+	const [data, setData] = useState([]);
+
+
+	  const [user] = useAuthState(auth);
+
+	
 	useEffect(() => {
 	    async function fetchData() {
 	      const response = await fetch('/api/hello');
@@ -15,6 +45,17 @@ export default function Home() {
 	  }, [geto]);
   return (
     <>
+    	<div className="App">
+	      <header>
+		<h1>⚛️🔥💬</h1>
+		<SignOutw />
+	      </header>
+
+	      <section>
+		{user ? <>you are signed in </> : <SignIn />}
+	      </section>
+
+	    </div>
 	<header> 
 	  <button><Link href='/'>  logo </Link> </button>
 	  <button> about us </button>
@@ -53,6 +94,55 @@ export default function Home() {
   )
 }
 
+function SignIn() {
+
+  const signInWithGoogle = () => {
+    const provider = new GoogleAuthProvider();
+    signInWithPopup(auth, provider)
+	  .then((result) => {
+	    // This gives you a Google Access Token. You can use it to access the Google API.
+	    const credential = GoogleAuthProvider.credentialFromResult(result);
+	    const token = credential.accessToken;
+	    // The signed-in user info.
+	    const user = result.user;
+	    // IdP data available using getAdditionalUserInfo(result)
+	    // ...
+	  }).catch((error) => {
+	    // Handle Errors here.
+	    const errorCode = error.code;
+	    const errorMessage = error.message;
+	    // The email of the user's account used.
+	    const email = error.customData.email;
+	    // The AuthCredential type that was used.
+	    const credential = GoogleAuthProvider.credentialFromError(error);
+	    // ...
+	  });
+
+  }
+
+  return (
+    <>
+      <button className="sign-in" onClick={signInWithGoogle}>Sign in with Google</button>
+      <p>Do not violate the community guidelines or you will be banned for life!</p>
+    </>
+  )
+
+}
+
+function SignOutw() {
+	function test1 (){
+		signOut(auth).then(() => {
+		  // Sign-out successful.
+		}).catch((error) => {
+		  // An error happened.
+		});
+		
+	}
+
+  return auth.currentUser && (
+    <button className="sign-out" onClick={() => test1()}>Sign Out</button>
+  )
+}
 
 
 

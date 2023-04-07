@@ -1,4 +1,26 @@
+
+import { collection, addDoc ,getFirestore} from "firebase/firestore"; 
+import { initializeApp } from "firebase/app";
+
 import {useEffect, useState} from 'react'
+
+
+const firebaseConfig = {
+  apiKey: "AIzaSyDtvNXCpK2_pZtsvmpmuLWhPylQ8Jewoec",
+  authDomain: "testland-4960a.firebaseapp.com",
+  projectId: "testland-4960a",
+  storageBucket: "testland-4960a.appspot.com",
+  messagingSenderId: "390892028351",
+  appId: "1:390892028351:web:1bccc6ed25c9809664210a"
+};
+
+
+
+
+
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+
 
 export default function cart(){
   const [items, setItems] = useState({})
@@ -8,6 +30,18 @@ export default function cart(){
     let stuff = {}
     let chooseditems = JSON.stringify(items)
     let user = '{"user":"onething"}'
+    try {
+	  const docRef = await addDoc(collection(db, "users"), {
+	    first: "ayoub",
+	    last: "somet2",
+	    born: 2020,
+	    stuff: items
+	  });
+	  console.log("Document written with ID: ", docRef.id);
+	} catch (e) {
+	  console.error("Error adding document: ", e);
+	}
+
 
     stuff.items =chooseditems
     stuff.users = user
@@ -42,13 +76,15 @@ export default function cart(){
   console.log("length: ", Object.keys(items).length, "the thing: ", items)
      return(
     <>
+
+
        {Object.keys(items).length > 0 ? Object.keys(items).map((Keyname, i) =>(
          <p className="items" key={i}>
             item number {i}: {items[Keyname]}
          </p>
-       )) : <>no items yet </>}
-      {Object.keys(items).length > 0 ? <button onClick={handlecheckout}> check out </button> : <></>}
-      {false ? <> <input placeholder="your name"/><input placeholder="your last name"/> <input placeholder="your adress"/><input placeholder="your phone number"/> </>: <></>}
+       )) : <>YOur cart is empty go shopping here <p>link</p></>}
+      {Object.keys(items).length > 0 ?<> <input placeholder="your name"/><input placeholder="your last name"/> <input placeholder="your adress"/><input placeholder="your phone number"/> <button onClick={handlecheckout}> check out </button></>  : <></>}
+
 
     </>
 
