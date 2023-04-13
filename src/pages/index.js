@@ -47,7 +47,6 @@ export default function Home() {
     <>
     	<div className="App">
 	      <header>
-		<h1>⚛️🔥💬</h1>
 		<SignOutw />
 	      </header>
 
@@ -79,16 +78,7 @@ export default function Home() {
 	  <div className="aboutus">
 	    <p> we sell power banks of all kinds and stuff </p> 
 	  </div>
-	  <div>
-	      {data.map((row) => (
-		<div key={row.id}>
-		  <p>{row.name}</p>
-		  <p>{row.email}</p>
-		  <p>{row.phone}</p>
-		</div>
-	      ))}
-	    </div>
-	    <button onClick={()=>{setGeto(geto+1)}}>get data </button>
+	  
 	</div>
     </>
   )
@@ -123,7 +113,7 @@ function SignIn() {
   return (
     <>
       <button className="sign-in" onClick={signInWithGoogle}>Sign in with Google</button>
-      <p>Do not violate the community guidelines or you will be banned for life!</p>
+      <p>sign up if no account , or log in if already made one :D !</p>
     </>
   )
 

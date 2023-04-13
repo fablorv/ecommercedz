@@ -15,7 +15,7 @@ const firebaseConfig = {
 };
 
 
-
+//figure out where the user input is saved in FORMIK libary 
 
 
 const app = initializeApp(firebaseConfig);
@@ -25,6 +25,7 @@ const db = getFirestore(app);
 export default function cart(){
   const [items, setItems] = useState({})
   const [func , setFunc]= useState()
+  const [checkoutinfo , setCheckout] = useState([])
 
   async function handlecheckout(){
     let stuff = {}
@@ -83,7 +84,10 @@ export default function cart(){
             item number {i}: {items[Keyname]}
          </p>
        )) : <>YOur cart is empty go shopping here <p>link</p></>}
-      {Object.keys(items).length > 0 ?<> <input placeholder="your name"/><input placeholder="your last name"/> <input placeholder="your adress"/><input placeholder="your phone number"/> <button onClick={handlecheckout}> check out </button></>  : <></>}
+      {Object.keys(items).length > 0 ?
+	  <>
+	    <input placeholder="your name"/><input placeholder="your last name"/> <input placeholder="your adress"/><input placeholder="your phone number"/> <button onClick={handlecheckout}> check out </button>
+	  </>  : <></>}
 
 
     </>
