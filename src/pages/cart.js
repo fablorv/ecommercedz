@@ -1,8 +1,11 @@
 
 import { collection, addDoc ,getFirestore} from "firebase/firestore"; 
 import { initializeApp } from "firebase/app";
-
+import { Formik, Form, Field, ErrorMessage } from 'formik';
 import {useEffect, useState} from 'react'
+
+
+
 
 
 const firebaseConfig = {
@@ -13,13 +16,67 @@ const firebaseConfig = {
   messagingSenderId: "390892028351",
   appId: "1:390892028351:web:1bccc6ed25c9809664210a"
 };
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
 
+const Basic = () => (
+  <div>
+    <h1>Sign Up</h1>
+    <Formik
+      initialValues={{
+        firstName: '',
+        lastName: '',
+        email: '',
+      }}
+      validate={values => {
+         const errors = {};
+         if (!values.email) {
+           errors.email = 'Required';
+         } else if (
+           !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email)
+         ) {
+           errors.email = 'Invalid email address';
+         }
+         return errors;
+       }}
+      onSubmit={async (values) => {
+        await new Promise((r) => setTimeout(r, 500));
+        let cookiestr = document.cookie;
+        try {
+	  const docRef = await addDoc(collection(db, "users"), {
+	    useritems: cookiestr,
+	    info: values
+	  });
+	  console.log("Document written with ID: ", docRef.id);
+	} catch (e) {
+	  console.error("Error adding document: ", e);
+	}
+	 let str = document.cookie;
+        console.log(values);
+      }}
+    >
+      <Form>
+        <label htmlFor="firstName">First Name</label>
+        <Field id="firstName" name="firstName" placeholder="Jane" />
 
+        <label htmlFor="lastName">Last Name</label>
+        <Field id="lastName" name="lastName" placeholder="Doe" />
+
+        <label htmlFor="email">Email</label>
+        <Field
+          id="email"
+          name="email"
+          placeholder="jane@acme.com"
+          type="email"
+        />
+        <button type="submit">Submit</button>
+      </Form>
+    </Formik>
+  </div>
+);
 //figure out where the user input is saved in FORMIK libary 
 
 
-const app = initializeApp(firebaseConfig);
-const db = getFirestore(app);
 
 
 export default function cart(){
@@ -33,9 +90,7 @@ export default function cart(){
     let user = '{"user":"onething"}'
     try {
 	  const docRef = await addDoc(collection(db, "users"), {
-	    first: "ayoub",
-	    last: "somet2",
-	    born: 2020,
+	    
 	    stuff: items
 	  });
 	  console.log("Document written with ID: ", docRef.id);
@@ -86,8 +141,9 @@ export default function cart(){
        )) : <>YOur cart is empty go shopping here <p>link</p></>}
       {Object.keys(items).length > 0 ?
 	  <>
-	    <input placeholder="your name"/><input placeholder="your last name"/> <input placeholder="your adress"/><input placeholder="your phone number"/> <button onClick={handlecheckout}> check out </button>
+		<Basic />
 	  </>  : <></>}
+
 
 
     </>
