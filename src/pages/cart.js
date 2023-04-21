@@ -21,12 +21,13 @@ const db = getFirestore(app);
 
 const Basic = () => (
   <div>
-    <h1>Sign Up</h1>
+    <h1>FIll up the form</h1>
     <Formik
       initialValues={{
         firstName: '',
         lastName: '',
         email: '',
+        number: '',
       }}
       validate={values => {
          const errors = {};
@@ -69,6 +70,15 @@ const Basic = () => (
           placeholder="jane@acme.com"
           type="email"
         />
+        <label htmlFor="number">phone number</label>
+
+        <Field
+          id="phone"
+          name="phone"
+          placeholder="0xxxxxxxx"
+          type="number"
+        />
+
         <button type="submit">Submit</button>
       </Form>
     </Formik>
@@ -83,6 +93,7 @@ export default function cart(){
   const [items, setItems] = useState({})
   const [func , setFunc]= useState()
   const [checkoutinfo , setCheckout] = useState([])
+  const [checkstate, setCheckstate] = useState(false)
 
   async function handlecheckout(){
     let stuff = {}
@@ -134,15 +145,17 @@ export default function cart(){
     <>
 
 
-       {Object.keys(items).length > 0 ? Object.keys(items).map((Keyname, i) =>(
-         <p className="items" key={i}>
-            item number {i}: {items[Keyname]}
-         </p>
-       )) : <>YOur cart is empty go shopping here <p>link</p></>}
       {Object.keys(items).length > 0 ?
-	  <>
-		<Basic />
-	  </>  : <></>}
+	  <>{checkstate ? 
+		<Basic /> : <>
+                              
+                   {Object.keys(items).length > 0 ? Object.keys(items).map((Keyname, i) =>(
+                     <p className="items" key={i}>
+                        item number {i}: {items[Keyname]}
+                     </p>
+                   )) : <></>}<button onClick={()=> setCheckstate(true)}> checkout </button> 
+            </>}
+	  </>  : <>YOur cart is empty go shopping here <p>link</p></>}
 
 
 
