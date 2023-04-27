@@ -3,10 +3,12 @@ import { collection, addDoc ,getFirestore} from "firebase/firestore";
 import { initializeApp } from "firebase/app";
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import {useEffect, useState} from 'react'
+import Link from 'next/link'
 
 
 
-
+//task: when user click "checkout" ask user to log in if they are not if they are fill the 
+//boxs with infos from the logs info
 
 const firebaseConfig = {
   apiKey: "AIzaSyDtvNXCpK2_pZtsvmpmuLWhPylQ8Jewoec",
@@ -84,7 +86,6 @@ const Basic = () => (
     </Formik>
   </div>
 );
-//figure out where the user input is saved in FORMIK libary 
 
 
 
@@ -155,7 +156,7 @@ export default function cart(){
                      </p>
                    )) : <></>}<button onClick={()=> setCheckstate(true)}> checkout </button> 
             </>}
-	  </>  : <>YOur cart is empty go shopping here <p>link</p></>}
+	  </>  : <> YOur cart is empty go shopping here<Link href='/products'> PRODUCTS</Link>  </>}
 
 
 
